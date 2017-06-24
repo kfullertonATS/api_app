@@ -1,0 +1,19 @@
+{
+  "name": "api_app",
+  "version": "0.0.1",
+  "description": "UI Facing API for ATS",
+  "main": "main.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/kfullertonATS/api_app.git"
+  },
+  "author": "Kent Fullerton, ATS",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/kfullertonATS/api_app/issues"
+  },
+  "homepage": "https://github.com/kfullertonATS/api_app#readme"
+}
