@@ -15,5 +15,8 @@
   "bugs": {
     "url": "https://github.com/kfullertonATS/api_app/issues"
   },
-  "homepage": "https://github.com/kfullertonATS/api_app#readme"
+  "homepage": "https://github.com/kfullertonATS/api_app#readme",
+  "dependencies": {
+    "express": "^4.15.3"
+  }
 }
