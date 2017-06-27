@@ -1,42 +1,62 @@
 import * as express from "express";
 
-// var http = require("http");
-
 const bodyParser = require('body-parser');
 const app = express();
-const debug = true;
+const winston = require('winston');
+const expressWinston = require('winston-express-middleware');
 let v1api = require('./routes/v1_api')
+//winston logging
 // let yaml = require('yamljs');
 // const cfg = yaml.load('tcsb.yaml');
 
 // Before anything else set Debug and Loggins
-app.use((req, resp, next) => {
-    // Set Debug Options
-    
-//     if (process.env.debug >=0 ){
-//         debug = true;
+//  if (process.env.debug >=0 ){
+       app.set('debug', true);
 //     }
+// need a global logging service.  
+// const logger = new (winston.Logger)({
+//     transports: [
+//       new (winston.transports.Console)({
+//             json: true,
+//             colorize: true
+//         })
+//     ]
+// });
+// app.set('logger', logger);
 
-//     console.log('Debug Mode Set to ', debug)
-    console.log('call to : ', req.url)
-    next();
+const foo = expressWinston.logger({
+    transports: [
+        new winston.transports.Console({
+            json: false,
+            colorize: true,
+            level: (app.get('debug')) ? 'debug': 'info'
+        })
+    ]
 });
 
-app.use((req, resp, next) => {
-    if(debug){
+app.use(foo);
+
+// Replace with external module to validate the JWT
+app.use((req: express.Request, resp:  express.Response, next: express.NextFunction) => {
+    if(app.get('debug')){
         console.log('Validating Authorization Token')
     }
     next();
 });
 
-app.use(bodyParser.json())
-app.use((req, resp, next) => {
-    if(debug){console.log('Validating JSON Schema')}
+// Replace with external modulue to validate JSON Schema
+app.use(bodyParser.json());
+app.use((req: express.Request, resp:  express.Response, next: express.NextFunction) => {
+    if(app.get('debug')){console.log('Validating JSON Schema')}
     next();
 });
 
-// http.createServer(app).listen(3000);
-app.use("/v1", v1api)
+// foo.info('this is a test');
+
+// use the Version 1 Routes and Business Logic
+app.use("/v1", v1api);
+
+
 
 const server = app.listen(80, () => {
 //    const {address, port} = server.address();

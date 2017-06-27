@@ -21,8 +21,11 @@
   },
   "homepage": "https://github.com/kfullertonATS/api_app#readme",
   "dependencies": {
+    "@types/winston": "^2.3.3",
     "body-parser": "^1.17.2",
-    "express": "^4.15.3"
+    "express": "^4.15.3",
+    "winston": "^2.3.1",
+    "winston-express-middleware": "^0.1.0"
   },
   "devDependencies": {
     "@types/es6-shim": "^0.31.34",
